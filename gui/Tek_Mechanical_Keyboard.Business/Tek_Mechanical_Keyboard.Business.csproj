@@ -7,4 +7,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Tek_Mechanical_Keyboard.DataAccess\Tek_Mechanical_Keyboard.DataAccess.csproj" />
+    <ProjectReference Include="..\Tek_Mechanical_Keyboard.Domain\Tek_Mechanical_Keyboard.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

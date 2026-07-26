@@ -1,0 +1,94 @@
+<UserControl x:Class="Tek_Mechanical_Keyboard.UI.Left_Side_Buttons.LeftSidePanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:Tek_Mechanical_Keyboard.UI.Left_Side_Buttons"
+             mc:Ignorable="d"
+             d:DesignWidth="250"
+             d:DesignHeight="650">
+
+    <Grid Background="{StaticResource SidebarBackgroundBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0"
+                Height="60"
+                BorderBrush="{StaticResource BorderBrush}"
+                BorderThickness="0,0,0,1">
+            <Grid Margin="18,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="34" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Border Width="24"
+                        Height="24"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Background="#151515"
+                        BorderBrush="#404040"
+                        BorderThickness="1"
+                        CornerRadius="3">
+                    <TextBlock HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               FontFamily="Segoe MDL2 Assets"
+                               FontSize="12"
+                               Foreground="{StaticResource AccentBrush}"
+                               Text="&#xE9F9;" />
+                </Border>
+
+                <TextBlock Grid.Column="1"
+                           VerticalAlignment="Center"
+                           FontSize="13"
+                           FontWeight="SemiBold"
+                           Foreground="{StaticResource PrimaryTextBrush}"
+                           Text="Tek Keyboard" />
+            </Grid>
+        </Border>
+
+        <StackPanel Grid.Row="1" Margin="0,14,0,0">
+            <controls:LeftSideButton x:Name="MainButton"
+                                     Text="Main"
+                                     Icon="&#xE80F;"
+                                     PageKey="Main"
+                                     Click="NavigationButton_OnClick" />
+
+            <controls:LeftSideButton x:Name="KeymapButton"
+                                     Text="Keymap"
+                                     Icon="&#xE765;"
+                                     PageKey="Keymap"
+                                     Click="NavigationButton_OnClick" />
+
+            <controls:LeftSideButton x:Name="LightingButton"
+                                     Text="Lighting"
+                                     Icon="&#xEA80;"
+                                     PageKey="Lighting"
+                                     Click="NavigationButton_OnClick" />
+
+            <controls:LeftSideButton x:Name="MacrosButton"
+                                     Text="Macros"
+                                     Icon="&#xE8F1;"
+                                     PageKey="Macros"
+                                     Click="NavigationButton_OnClick" />
+
+            <controls:LeftSideButton x:Name="SettingsButton"
+                                     Text="Settings"
+                                     Icon="&#xE713;"
+                                     PageKey="Settings"
+                                     Click="NavigationButton_OnClick" />
+        </StackPanel>
+
+        <Border Grid.Row="2"
+                Padding="18,14"
+                BorderBrush="{StaticResource BorderBrush}"
+                BorderThickness="0,1,0,0">
+            <TextBlock FontSize="11"
+                       Foreground="#777777"
+                       Text="QMK keyboard configurator" />
+        </Border>
+    </Grid>
+</UserControl>

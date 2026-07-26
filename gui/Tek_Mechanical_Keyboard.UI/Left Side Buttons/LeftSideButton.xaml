@@ -1,0 +1,106 @@
+<UserControl x:Class="Tek_Mechanical_Keyboard.UI.Left_Side_Buttons.LeftSideButton"
+             x:Name="Root"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:Tek_Mechanical_Keyboard.UI.Left_Side_Buttons"
+             mc:Ignorable="d"
+             d:DesignHeight="48"
+             d:DesignWidth="250"
+             Height="48"
+             Focusable="False">
+
+    <Button x:Name="ButtonPart"
+            Padding="0"
+            BorderThickness="0"
+            Background="Transparent"
+            Cursor="Hand"
+            FocusVisualStyle="{x:Null}"
+            Click="ButtonPart_OnClick">
+        <Button.Template>
+            <ControlTemplate TargetType="{x:Type Button}">
+                <Grid Background="Transparent">
+                    <Border x:Name="ButtonBackground"
+                            Margin="8,2"
+                            Background="Transparent"
+                            CornerRadius="2" />
+
+                    <Border x:Name="SelectionIndicator"
+                            Width="3"
+                            Height="24"
+                            Margin="0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Background="{StaticResource AccentBrush}"
+                            CornerRadius="0,2,2,0"
+                            Visibility="Collapsed" />
+
+                    <Grid Margin="18,0,12,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock x:Name="IconText"
+                                   Grid.Column="0"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   FontFamily="Segoe MDL2 Assets"
+                                   FontSize="15"
+                                   Foreground="{StaticResource SecondaryTextBrush}"
+                                   Text="{Binding Icon, RelativeSource={RelativeSource AncestorType={x:Type controls:LeftSideButton}}}" />
+
+                        <TextBlock x:Name="CaptionText"
+                                   Grid.Column="1"
+                                   Margin="8,0,0,0"
+                                   VerticalAlignment="Center"
+                                   FontFamily="Segoe UI"
+                                   FontSize="14"
+                                   Foreground="{StaticResource SecondaryTextBrush}"
+                                   Text="{Binding Text, RelativeSource={RelativeSource AncestorType={x:Type controls:LeftSideButton}}}" />
+                    </Grid>
+                </Grid>
+
+                <ControlTemplate.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter TargetName="ButtonBackground"
+                                Property="Background"
+                                Value="{StaticResource HoverBackgroundBrush}" />
+                        <Setter TargetName="IconText"
+                                Property="Foreground"
+                                Value="{StaticResource PrimaryTextBrush}" />
+                        <Setter TargetName="CaptionText"
+                                Property="Foreground"
+                                Value="{StaticResource PrimaryTextBrush}" />
+                    </Trigger>
+
+                    <Trigger Property="IsPressed" Value="True">
+                        <Setter TargetName="ButtonBackground"
+                                Property="Opacity"
+                                Value="0.75" />
+                    </Trigger>
+
+                    <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type controls:LeftSideButton}}}"
+                                 Value="True">
+                        <Setter TargetName="ButtonBackground"
+                                Property="Background"
+                                Value="{StaticResource SelectedBackgroundBrush}" />
+                        <Setter TargetName="SelectionIndicator"
+                                Property="Visibility"
+                                Value="Visible" />
+                        <Setter TargetName="IconText"
+                                Property="Foreground"
+                                Value="{StaticResource PrimaryTextBrush}" />
+                        <Setter TargetName="CaptionText"
+                                Property="Foreground"
+                                Value="{StaticResource PrimaryTextBrush}" />
+                        <Setter TargetName="CaptionText"
+                                Property="FontWeight"
+                                Value="SemiBold" />
+                    </DataTrigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+        </Button.Template>
+    </Button>
+</UserControl>
