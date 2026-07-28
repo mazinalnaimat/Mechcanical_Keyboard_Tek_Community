@@ -93,4 +93,14 @@ public partial class MainWindow : Window
             ? WindowState.Normal
             : WindowState.Maximized;
     }
+
+    private void SidePanel_Loaded(object sender, RoutedEventArgs e)
+    {
+
+    }
+
+    private void PageFrame_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
+    {
+
+    }
 }

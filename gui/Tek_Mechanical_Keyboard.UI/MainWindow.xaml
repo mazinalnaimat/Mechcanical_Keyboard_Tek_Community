@@ -98,7 +98,7 @@
 
                 <sidebar:LeftSidePanel x:Name="SidePanel"
                                        Grid.Column="0"
-                                       NavigationRequested="SidePanel_OnNavigationRequested" />
+                                       NavigationRequested="SidePanel_OnNavigationRequested" Loaded="SidePanel_Loaded" />
 
                 <Border Grid.Column="1"
                         Background="{StaticResource PageBackgroundBrush}"
@@ -106,7 +106,7 @@
                         BorderThickness="1,0,0,0">
                     <Frame x:Name="PageFrame"
                            Background="{StaticResource PageBackgroundBrush}"
-                           NavigationUIVisibility="Hidden" />
+                           NavigationUIVisibility="Hidden" Navigated="PageFrame_Navigated" />
                 </Border>
             </Grid>
         </Grid>
