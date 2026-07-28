@@ -1,3 +1,4 @@
 .vs
 **/bin
 **/obj
+"auto_push.bat"
