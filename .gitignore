@@ -1,4 +1,4 @@
 .vs
 **/bin
 **/obj
-"auto_push.bat"
+**/auto_push.bat
