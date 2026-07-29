@@ -1,174 +1,74 @@
-<Page x:Class="Tek_Mechanical_Keyboard.UI.Keymap_Page.KeymapPage"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      mc:Ignorable="d"
-      d:DesignHeight="600"
-      d:DesignWidth="900"
-      Title="Keymap"
-      Background="{StaticResource PageBackgroundBrush}">
+<Page
+    x:Class="Tek_Mechanical_Keyboard.UI.Keymap_Page.KeymapPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Keymap"
+    Background="{StaticResource PageBackgroundBrush}"
+    mc:Ignorable="d">
 
     <Page.Resources>
-        <SolidColorBrush x:Key="Win11DarkSelectedTabBg" Color="#2A3847"/>
-        <SolidColorBrush x:Key="Win11DarkAccent" Color="#4CC2FF"/>
-        <SolidColorBrush x:Key="Win11DarkHoverTabBg" Color="#2D2D2D"/>
-        <SolidColorBrush x:Key="Win11DarkTextPrimary" Color="#FFFFFF"/>
-        <SolidColorBrush x:Key="Win11DarkContentBg" Color="#272727"/>
-        <SolidColorBrush x:Key="Win11DarkBorder" Color="#1C1C1C"/>
-
-        <Style TargetType="CheckBox">
-            <Setter Property="Foreground" Value="{StaticResource Win11DarkTextPrimary}"/>
-            <Setter Property="FontSize" Value="13"/>
-        </Style>
-
-        <!-- Light styling for TextBlock -->
-        <Style TargetType="TextBlock">
-            <Setter Property="Foreground" Value="{StaticResource Win11DarkTextPrimary}"/>
-        </Style>
-
-        <Style TargetType="TabItem">
-            <Setter Property="Padding" Value="16,8"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="FontFamily" Value="Segoe UI Variable Display, Segoe UI"/>
-            <Setter Property="Foreground" Value="#CCCCCC"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="TabItem">
-                        <Grid x:Name="RootGrid" Margin="2,0">
-                            <Border x:Name="Border"
-                                    Background="Transparent"
-                                    CornerRadius="6"
-                                    Padding="{TemplateBinding Padding}"
-                                    SnapsToDevicePixels="True">
-                                <ContentPresenter x:Name="ContentSite"
-                                                  VerticalAlignment="Center"
-                                                  HorizontalAlignment="Center"
-                                                  ContentSource="Header"/>
-                            </Border>
-                            <Border x:Name="SelectedIndicator"
-                                    Height="3"
-                                    Width="18"
-                                    CornerRadius="1.5"
-                                    Background="{StaticResource Win11DarkAccent}"
-                                    VerticalAlignment="Bottom"
-                                    HorizontalAlignment="Center"
-                                    Margin="0,0,0,2"
-                                    Visibility="Collapsed"/>
-                        </Grid>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Border" Property="Background" Value="{StaticResource Win11DarkHoverTabBg}"/>
-                                <Setter Property="Foreground" Value="#FFFFFF"/>
-                            </Trigger>
-
-                            <!-- Selected state -->
-                            <Trigger Property="IsSelected" Value="True">
-                                <Setter TargetName="Border" Property="Background" Value="{StaticResource Win11DarkSelectedTabBg}"/>
-                                <Setter Property="Foreground" Value="{StaticResource Win11DarkAccent}"/>
-                                <Setter Property="FontWeight" Value="SemiBold"/>
-                                <Setter TargetName="SelectedIndicator" Property="Visibility" Value="Visible"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <Style TargetType="TabControl">
-            <Setter Property="Padding" Value="0,8,0,0"/>
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="TabControl">
-                        <Grid KeyboardNavigation.TabNavigation="Local" Background="{x:Null}">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-
-                            <!-- Top tab strip -->
-                            <TabPanel x:Name="HeaderPanel"
-                                      Background ="#0000"
-                                      Grid.Row="0"
-                                      IsItemsHost="True"
-                                      Margin="10,0,10,6"/>
-
-                            <!-- Content area -->
-                            <Border Grid.Row="1"
-                                    Background="{StaticResource Win11DarkContentBg}"
-                                    CornerRadius="8"
-                                    Margin="10,0,10,10"
-                                    BorderBrush="{StaticResource Win11DarkBorder}"
-                                    BorderThickness="1">
-                                <ContentPresenter x:Name="PART_SelectedContentHost"
-                                                  Margin="{TemplateBinding Padding}"
-                                                  ContentSource="SelectedContent"/>
-                            </Border>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/KeymapStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Page.Resources>
-    
-    
 
     <Grid Margin="10" Background="#FF353535">
-        <TabControl BorderBrush="#CCCCCC" Margin="299,337,0,0" SelectionChanged="TabControl_SelectionChanged_1" BorderThickness="4">
-            <TabControl.Background>
-                <ImageBrush ImageSource="/Keymap Page/06b292dd1ed5f9c00f642e6bde12f055.jpg"/>
-            </TabControl.Background>
+        <TabControl
+            Margin="299,337,0,0"
+            BorderBrush="#CCCCCC"
+            BorderThickness="4"
+            SelectionChanged="TabControl_SelectionChanged_1">
             <TabItem Header="Basic">
-                <StackPanel Margin="15">
-                </StackPanel>
+                <StackPanel Margin="15" />
             </TabItem>
 
             <TabItem Header="Media">
-                <StackPanel Margin="15">
-                </StackPanel>
+                <StackPanel Margin="15" />
             </TabItem>
 
             <TabItem Header="Macro">
-                <StackPanel Margin="15">
-                </StackPanel>
+                <StackPanel Margin="15" />
             </TabItem>
 
             <TabItem Header="Layer">
-                <StackPanel Margin="15">
-                </StackPanel>
+                <StackPanel Margin="15" />
             </TabItem>
 
             <TabItem Header="Lighting">
-                <StackPanel Margin="15">
-                </StackPanel>
+                <StackPanel Margin="15" />
             </TabItem>
 
             <TabItem Header="System">
-                <StackPanel Margin="15">
-                </StackPanel>
+                <StackPanel Margin="15" />
             </TabItem>
         </TabControl>
 
-        <TabControl BorderBrush="#CCCCCC" Margin="20,337,586,10" BorderThickness="4">
+        <TabControl
+            Margin="20,337,586,10"
+            BorderBrush="#CCCCCC"
+            BorderThickness="4">
             <TabItem>
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <Border Background="{StaticResource Win11DarkSelectedTabBg}" 
-        CornerRadius="6" 
-        Padding="16,8">
-                            <TextBlock Text="Key Control" 
-               FontSize="14" 
-               FontWeight="SemiBold"
-               FontFamily="Segoe UI Variable Display, Segoe UI"
-               Foreground="#4CC2FF"/>
+                        <Border
+                            Padding="16,8"
+                            Background="{StaticResource Win11DarkSelectedTabBg}"
+                            CornerRadius="6">
+                            <TextBlock
+                                FontFamily="Segoe UI Variable Display, Segoe UI"
+                                FontSize="14"
+                                FontWeight="SemiBold"
+                                Foreground="#4CC2FF"
+                                Text="Key Control" />
                         </Border>
                     </StackPanel>
                 </TabItem.Header>
 
-                <StackPanel Margin="15">
-                </StackPanel>
+                <StackPanel Margin="15" />
             </TabItem>
         </TabControl>
     </Grid>

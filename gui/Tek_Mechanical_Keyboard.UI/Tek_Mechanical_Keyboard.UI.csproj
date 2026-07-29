@@ -8,10 +8,4 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>Tek_Mechanical_Keyboard.UI</RootNamespace>
   </PropertyGroup>
-  <ItemGroup>
-    <None Remove="Keymap Page\06b292dd1ed5f9c00f642e6bde12f055.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Keymap Page\06b292dd1ed5f9c00f642e6bde12f055.jpg" />
-  </ItemGroup>
 </Project>
