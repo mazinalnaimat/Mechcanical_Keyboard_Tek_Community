@@ -1,0 +1,379 @@
+<pages:BasePage
+    x:Class="Tek_Mechanical_Keyboard.UI.Pages.Keymap.KeymapPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:Tek_Mechanical_Keyboard.UI.Pages.Keymap.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pages="clr-namespace:Tek_Mechanical_Keyboard.UI.Pages"
+    x:Name="RootPage"
+    Title="Keymap"
+    d:DesignHeight="751.294"
+    d:DesignWidth="1208.422"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/KeymapStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+
+        <Grid Margin="16" HorizontalAlignment="Stretch" Background="{StaticResource PageBackgroundBrush}" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="350" />
+                <RowDefinition Height="300" />
+            </Grid.RowDefinitions>
+
+            <!--  Header / profile controls  -->
+            <Grid Grid.Row="0" Margin="0,0,0,12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel>
+                    <TextBlock
+                        FontSize="22"
+                        FontWeight="SemiBold"
+                        Foreground="{StaticResource PrimaryTextBrush}"
+                        Text="Keymap" />
+                    <TextBlock
+                        Margin="0,3,0,0"
+                        FontSize="11"
+                        Foreground="{StaticResource SecondaryTextBrush}"
+                        Text="{Binding ProfileTitle}" />
+                </StackPanel>
+
+                <StackPanel
+                    Grid.Column="1"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
+                    <ComboBox
+                        Width="145"
+                        ItemsSource="{Binding ProfileNames}"
+                        SelectedItem="{Binding SelectedProfileName, Mode=TwoWay}" />
+                    <Button
+                        Command="{Binding LoadProfileCommand}"
+                        Content="Load"
+                        Style="{StaticResource ToolbarButton}" />
+                    <Button
+                        Command="{Binding RefreshCommand}"
+                        Content="Refresh"
+                        Style="{StaticResource ToolbarButton}" />
+                    <Button
+                        Command="{Binding SaveProfileCommand}"
+                        Content="Save"
+                        Style="{StaticResource AccentButton}" />
+                </StackPanel>
+            </Grid>
+
+            <!--  Layer selector  -->
+            <Border
+                Grid.Row="1"
+                Margin="0,0,0,10"
+                Padding="10,8"
+                Background="{StaticResource PanelBrush}"
+                BorderBrush="{StaticResource KeyMapBorderBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+                <DockPanel LastChildFill="True">
+                    <TextBlock
+                        Margin="0,0,14,0"
+                        VerticalAlignment="Center"
+                        Style="{StaticResource SectionTitle}"
+                        Text="Layer" />
+                    <ListBox
+                        Background="Transparent"
+                        BorderThickness="0"
+                        ItemsSource="{Binding Layers}"
+                        SelectedItem="{Binding SelectedLayer, Mode=TwoWay}">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="Margin" Value="0,0,6,0" />
+                                <Setter Property="Padding" Value="0" />
+                                <Setter Property="Background" Value="Transparent" />
+                                <Setter Property="BorderThickness" Value="0" />
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="ListBoxItem">
+                                            <Border
+                                                x:Name="LayerBorder"
+                                                Height="28"
+                                                MinWidth="46"
+                                                Padding="10,0"
+                                                Background="#2B2B2B"
+                                                BorderBrush="#414141"
+                                                BorderThickness="1"
+                                                CornerRadius="5">
+                                                <TextBlock
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    Foreground="{StaticResource SecondaryTextBrush}"
+                                                    Text="{Binding StringFormat='L{0}'}" />
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="LayerBorder" Property="Background" Value="#343434" />
+                                                </Trigger>
+                                                <Trigger Property="IsSelected" Value="True">
+                                                    <Setter TargetName="LayerBorder" Property="Background" Value="#17394A" />
+                                                    <Setter TargetName="LayerBorder" Property="BorderBrush" Value="{StaticResource AccentBrush}" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                    </ListBox>
+                </DockPanel>
+            </Border>
+
+            <!--  Keyboard and selected key inspector  -->
+            <Grid Grid.Row="2" Margin="0,0,0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="230" />
+                </Grid.ColumnDefinitions>
+
+                <Border
+                    Grid.Column="0"
+                    Margin="0,0,10,0"
+                    Padding="12"
+                    Background="{StaticResource PanelBrush}"
+                    BorderBrush="{StaticResource KeyMapBorderBrush}"
+                    BorderThickness="1"
+                    CornerRadius="8">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <DockPanel Margin="2,0,2,10">
+                            <TextBlock Style="{StaticResource SectionTitle}" Text="Keyboard layout" />
+                            <TextBlock
+                                Margin="10,0,0,0"
+                                VerticalAlignment="Center"
+                                FontSize="10"
+                                Foreground="{StaticResource SecondaryTextBrush}"
+                                Text="Select a physical key to edit its QMK action" />
+                        </DockPanel>
+                        <Viewbox Grid.Row="1">
+                            <controls:KeyboardLayout
+                                Width="905"
+                                Height="320"
+                                Keys="{Binding Keys}"
+                                RenderTransformOrigin="0.477,0.528"
+                                SelectCommand="{Binding SelectKeyCommand}" />
+                        </Viewbox>
+                    </Grid>
+                </Border>
+
+                <!--  Key Control  -->
+                <Border
+                    Grid.Column="1"
+                    Padding="14"
+                    Background="{StaticResource PanelBrush}"
+                    BorderBrush="{StaticResource KeyMapBorderBrush}"
+                    BorderThickness="1"
+                    CornerRadius="8">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Style="{StaticResource SectionTitle}" Text="Key Control" />
+                        <TextBlock
+                            Grid.Row="1"
+                            Margin="0,12,0,0"
+                            FontSize="14"
+                            FontWeight="SemiBold"
+                            Foreground="{StaticResource PrimaryTextBrush}"
+                            Text="{Binding SelectedKeyTitle}" />
+
+                        <Border
+                            Grid.Row="2"
+                            Margin="0,10,0,0"
+                            Padding="9"
+                            Background="#292929"
+                            BorderBrush="#393939"
+                            BorderThickness="1"
+                            CornerRadius="5">
+                            <StackPanel>
+                                <TextBlock
+                                    FontSize="10"
+                                    Foreground="{StaticResource SecondaryTextBrush}"
+                                    Text="Current QMK code" />
+                                <TextBlock
+                                    Margin="0,3,0,0"
+                                    FontFamily="Consolas"
+                                    FontSize="12"
+                                    Foreground="{StaticResource AccentBrush}"
+                                    Text="{Binding SelectedKey.Action.Code, TargetNullValue='Not assigned'}" />
+                            </StackPanel>
+                        </Border>
+
+                        <StackPanel Grid.Row="3" Margin="0,12,0,0">
+                            <TextBlock
+                                FontSize="10"
+                                Foreground="{StaticResource SecondaryTextBrush}"
+                                Text="Selected action" />
+                            <TextBlock
+                                Margin="0,3,0,0"
+                                FontWeight="SemiBold"
+                                Foreground="{StaticResource PrimaryTextBrush}"
+                                Text="{Binding SelectedAction.DisplayName, TargetNullValue='Choose an action below'}" />
+                            <TextBlock
+                                Margin="0,4,0,0"
+                                FontSize="10"
+                                Foreground="{StaticResource SecondaryTextBrush}"
+                                Text="{Binding SelectedAction.Description}"
+                                TextWrapping="Wrap" />
+                        </StackPanel>
+
+                        <StackPanel
+                            Grid.Row="4"
+                            HorizontalAlignment="Right"
+                            Orientation="Horizontal">
+                            <Button
+                                Command="{Binding ResetKeyCommand}"
+                                Content="Reset"
+                                Style="{StaticResource ToolbarButton}" />
+                            <Button
+                                Command="{Binding ApplyActionCommand}"
+                                Content="Apply"
+                                Style="{StaticResource AccentButton}" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <!--  Action browser  -->
+            <Border
+                Grid.Row="3"
+                Padding="12"
+                Background="{StaticResource PanelBrush}"
+                BorderBrush="{StaticResource KeyMapBorderBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Grid Margin="0,0,0,9">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="190" />
+                        </Grid.ColumnDefinitions>
+                        <ListBox
+                            Background="Transparent"
+                            BorderThickness="0"
+                            ItemsSource="{Binding ActionCategories}"
+                            SelectedItem="{Binding SelectedCategory, Mode=TwoWay}">
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="ListBoxItem">
+                                    <Setter Property="Margin" Value="0,0,6,0" />
+                                    <Setter Property="Padding" Value="8,4" />
+                                    <Setter Property="Foreground" Value="{StaticResource SecondaryTextBrush}" />
+                                    <Setter Property="Background" Value="#2B2B2B" />
+                                    <Setter Property="BorderBrush" Value="#404040" />
+                                    <Setter Property="BorderThickness" Value="1" />
+                                    <Style.Triggers>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter Property="Foreground" Value="{StaticResource AccentBrush}" />
+                                            <Setter Property="Background" Value="#17394A" />
+                                            <Setter Property="BorderBrush" Value="{StaticResource AccentBrush}" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ListBox.ItemContainerStyle>
+                        </ListBox>
+                        <TextBox
+                            Grid.Column="1"
+                            Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                            ToolTip="Search by QMK code, name, or description" />
+                    </Grid>
+
+                    <ListBox
+                        Grid.Row="1"
+                        MaxWidth="{Binding ActualWidth, ElementName=RootPage}"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        ItemsSource="{Binding FilteredActions}"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                        SelectedItem="{Binding SelectedAction, Mode=TwoWay}"
+                        SelectionChanged="ListBox_SelectionChanged">
+
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="Margin" Value="0,0,7,7" />
+                                <Setter Property="Padding" Value="0" />
+                                <Setter Property="Background" Value="Transparent" />
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border
+                                    Width="100"
+                                    Height="50"
+                                    Padding="9,6"
+                                    Background="#2C2C2C"
+                                    BorderBrush="#414141"
+                                    BorderThickness="1"
+                                    CornerRadius="5">
+                                    <StackPanel>
+                                        <TextBlock
+                                            FontSize="11"
+                                            FontWeight="SemiBold"
+                                            Foreground="{StaticResource PrimaryTextBrush}"
+                                            Text="{Binding DisplayName}"
+                                            TextTrimming="CharacterEllipsis" />
+                                        <TextBlock
+                                            Margin="0,3,0,0"
+                                            FontFamily="Consolas"
+                                            FontSize="9"
+                                            Foreground="{StaticResource AccentBrush}"
+                                            Text="{Binding Code}"
+                                            TextTrimming="CharacterEllipsis" />
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </Border>
+
+        </Grid>
+
+    </ScrollViewer>
+
+
+</pages:BasePage>

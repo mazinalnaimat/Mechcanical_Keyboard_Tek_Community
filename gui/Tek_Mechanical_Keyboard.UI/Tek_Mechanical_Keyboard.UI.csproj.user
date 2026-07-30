@@ -5,8 +5,5 @@
     <Compile Update="Left Side Buttons\LeftSideButton.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Settings Page\SettingsPage.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
 </Project>
