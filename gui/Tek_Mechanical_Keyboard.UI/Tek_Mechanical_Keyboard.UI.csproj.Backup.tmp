@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>Tek_Mechanical_Keyboard.UI</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Keymap Page\**" />
+    <EmbeddedResource Remove="Keymap Page\**" />
+    <None Remove="Keymap Page\**" />
+    <Page Remove="Keymap Page\**" />
+  </ItemGroup>
+</Project>

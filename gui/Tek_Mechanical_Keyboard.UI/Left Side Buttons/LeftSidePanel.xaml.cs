@@ -13,6 +13,13 @@ public partial class LeftSidePanel : UserControl
 {
     private readonly List<LeftSideButton> _buttons;
 
+    public static readonly DependencyProperty IsCompactProperty =
+        DependencyProperty.Register(
+            nameof(IsCompact),
+            typeof(bool),
+            typeof(LeftSidePanel),
+            new PropertyMetadata(false));
+
     public LeftSidePanel()
     {
         InitializeComponent();
@@ -35,13 +42,31 @@ public partial class LeftSidePanel : UserControl
     /// </summary>
     public event EventHandler<NavigationRequestedEventArgs>? NavigationRequested;
 
+    /// <summary>
+    /// Raised after the sidebar toggle button is clicked and IsCompact has changed.
+    /// The parent control/window can subscribe to this event.
+    /// </summary>
+    public event EventHandler? ToggleClicked;
+
     public string SelectedPageKey { get; private set; } = "Main";
+
+    public bool IsCompact
+    {
+        get => (bool)GetValue(IsCompactProperty);
+        set => SetValue(IsCompactProperty, value);
+    }
 
     public bool IsMainPressed => MainButton.IsSelected;
     public bool IsKeymapPressed => KeymapButton.IsSelected;
     public bool IsLightingPressed => LightingButton.IsSelected;
     public bool IsMacrosPressed => MacrosButton.IsSelected;
     public bool IsSettingsPressed => SettingsButton.IsSelected;
+
+    private void SidebarToggleButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        IsCompact = !IsCompact;
+        ToggleClicked?.Invoke(this, EventArgs.Empty);
+    }
 
     private void NavigationButton_OnClick(object sender, RoutedEventArgs e)
     {

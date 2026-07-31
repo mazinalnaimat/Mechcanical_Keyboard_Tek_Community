@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net10.0-windows</TargetFramework>
@@ -9,9 +9,20 @@
     <RootNamespace>Tek_Mechanical_Keyboard.UI</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="Keymap Page\06b292dd1ed5f9c00f642e6bde12f055.jpg" />
+    <Compile Remove="Keymap Page\**" />
+    <EmbeddedResource Remove="Keymap Page\**" />
+    <None Remove="Keymap Page\**" />
+    <Page Remove="Keymap Page\**" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Keymap Page\06b292dd1ed5f9c00f642e6bde12f055.jpg" />
+    <None Remove="Pages\Assets\tek_community_logo.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Tek_Mechanical_Keyboard.Business\Tek_Mechanical_Keyboard.Business.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pages\Assets\tek_community_logo.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 </Project>

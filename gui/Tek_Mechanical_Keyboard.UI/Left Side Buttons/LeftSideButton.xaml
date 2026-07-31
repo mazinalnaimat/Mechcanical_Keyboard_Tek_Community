@@ -17,6 +17,7 @@
             Background="Transparent"
             Cursor="Hand"
             FocusVisualStyle="{x:Null}"
+            ToolTip="{Binding Text, RelativeSource={RelativeSource AncestorType={x:Type controls:LeftSideButton}}}"
             Click="ButtonPart_OnClick">
         <Button.Template>
             <ControlTemplate TargetType="{x:Type Button}">
@@ -36,7 +37,8 @@
                             CornerRadius="0,2,2,0"
                             Visibility="Collapsed" />
 
-                    <Grid Margin="18,0,12,0">
+                    <Grid x:Name="ButtonContentGrid"
+                          Margin="18,0,12,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="30" />
                             <ColumnDefinition Width="*" />
@@ -98,6 +100,22 @@
                         <Setter TargetName="CaptionText"
                                 Property="FontWeight"
                                 Value="SemiBold" />
+                    </DataTrigger>
+
+                    <DataTrigger Binding="{Binding IsCompact, RelativeSource={RelativeSource AncestorType={x:Type controls:LeftSideButton}}}"
+                                 Value="True">
+                        <Setter TargetName="CaptionText"
+                                Property="Visibility"
+                                Value="Collapsed" />
+                        <Setter TargetName="ButtonContentGrid"
+                                Property="Width"
+                                Value="30" />
+                        <Setter TargetName="ButtonContentGrid"
+                                Property="Margin"
+                                Value="0" />
+                        <Setter TargetName="ButtonContentGrid"
+                                Property="HorizontalAlignment"
+                                Value="Center" />
                     </DataTrigger>
                 </ControlTemplate.Triggers>
             </ControlTemplate>

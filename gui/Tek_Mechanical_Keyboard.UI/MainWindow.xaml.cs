@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using Tek_Mechanical_Keyboard.UI.Keymap_Page;
+using Tek_Mechanical_Keyboard.Business.Keymap;
 using Tek_Mechanical_Keyboard.UI.Left_Side_Buttons;
-using Tek_Mechanical_Keyboard.UI.Lighting_Page;
-using Tek_Mechanical_Keyboard.UI.Macros_Page;
-using Tek_Mechanical_Keyboard.UI.Main_Page;
-using Tek_Mechanical_Keyboard.UI.Settings_Page;
+using Tek_Mechanical_Keyboard.UI.Pages.Keymap;
+using Tek_Mechanical_Keyboard.UI.Pages.Keymap.Services;
+using Tek_Mechanical_Keyboard.UI.Pages.Keymap.ViewModels;
+using Tek_Mechanical_Keyboard.UI.Pages.Lighting;
+using Tek_Mechanical_Keyboard.UI.Pages.Macros;
+using Tek_Mechanical_Keyboard.UI.Pages.Main;
+using Tek_Mechanical_Keyboard.UI.Pages.Settings;
 
 namespace Tek_Mechanical_Keyboard.UI.Main_Window;
 
@@ -24,10 +27,19 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
 
+        // Composition root for the KeyMap feature.
+        // Replace KeyMapBusinessService with the real Business implementation later;
+        // KeymapPage and KeyMapViewModel do not need to change.
+        IKeyMapBusinessService keyMapBusinessService = new KeyMapBusinessService();
+        KeyMapViewModel keyMapViewModel = new(
+            new KeyboardService(keyMapBusinessService),
+            new MacroService(keyMapBusinessService),
+            new ProfileService(keyMapBusinessService));
+
         _pages = new Dictionary<string, Page>(StringComparer.OrdinalIgnoreCase)
         {
             ["Main"] = new MainPage(),
-            ["Keymap"] = new KeymapPage(),
+            ["Keymap"] = new KeymapPage(keyMapViewModel),
             ["Lighting"] = new LightingPage(),
             ["Macros"] = new MacrosPage(),
             ["Settings"] = new SettingsPage()
@@ -73,19 +85,14 @@ public partial class MainWindow : Window
     }
 
     private void MinimizeButton_OnClick(object sender, RoutedEventArgs e)
-    {
-        WindowState = WindowState.Minimized;
-    }
+        => WindowState = WindowState.Minimized;
 
     private void MaximizeButton_OnClick(object sender, RoutedEventArgs e)
-    {
-        ToggleWindowState();
-    }
+        => ToggleWindowState();
 
     private void CloseButton_OnClick(object sender, RoutedEventArgs e)
-    {
-        Close();
-    }
+        => this.Close();
+
 
     private void ToggleWindowState()
     {
@@ -95,11 +102,6 @@ public partial class MainWindow : Window
     }
 
     private void SidePanel_Loaded(object sender, RoutedEventArgs e)
-    {
-
-    }
-
-    private void PageFrame_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
     {
 
     }

@@ -37,6 +37,13 @@ public partial class LeftSideButton : UserControl
             typeof(LeftSideButton),
             new PropertyMetadata(false));
 
+    public static readonly DependencyProperty IsCompactProperty =
+        DependencyProperty.Register(
+            nameof(IsCompact),
+            typeof(bool),
+            typeof(LeftSideButton),
+            new PropertyMetadata(false));
+
     public static readonly RoutedEvent ClickEvent =
         EventManager.RegisterRoutedEvent(
             nameof(Click),
@@ -74,6 +81,12 @@ public partial class LeftSideButton : UserControl
     {
         get => (bool)GetValue(IsSelectedProperty);
         set => SetValue(IsSelectedProperty, value);
+    }
+
+    public bool IsCompact
+    {
+        get => (bool)GetValue(IsCompactProperty);
+        set => SetValue(IsCompactProperty, value);
     }
 
     public event RoutedEventHandler Click
