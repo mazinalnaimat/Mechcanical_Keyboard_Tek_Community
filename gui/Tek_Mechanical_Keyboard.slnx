@@ -1,5 +1,4 @@
 <Solution>
-  <Project Path="TekKeyboard/TekKeyboard.csproj" Id="32174ac8-9e66-44bd-bfdf-1880bd4a3ba3" />
   <Project Path="Tek_Mechanical_Keyboard.Business/Tek_Mechanical_Keyboard.Business.csproj" />
   <Project Path="Tek_Mechanical_Keyboard.DataAccess/Tek_Mechanical_Keyboard.DataAccess.csproj" Id="05bbae73-4b73-4924-a3d3-bd223a265e18" />
   <Project Path="Tek_Mechanical_Keyboard.Domain/Tek_Mechanical_Keyboard.Domain.csproj" Id="a157125b-b231-4beb-995a-cb1678eea9a5" />

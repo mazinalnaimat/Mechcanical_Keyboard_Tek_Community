@@ -90,7 +90,7 @@
 
                                     <DataTemplate x:Key="NormalKeyTemplate">
 
-                                        <!--                          <controls:KeyButton
+                                        <controls:KeyButton
                                             SelectCommand="{Binding
                                                 SelectCommand,
                                                 RelativeSource={
@@ -100,11 +100,11 @@
                                                     }
                                                 }}" />
 
-                                    </DataTemplate>-->
+                                    </DataTemplate>
 
-                                        <!--  Modifier key  -->
+                                    <!--  Modifier key  -->
 
-                                        <!--               <DataTemplate x:Key="ModifierKeyTemplate">
+                                                       <DataTemplate x:Key="ModifierKeyTemplate">
 
                                         <controls:ModifierButton
                                             SelectCommand="{Binding
@@ -114,7 +114,7 @@
                                                     AncestorType={
                                                         x:Type controls:KeyboardLayout
                                                     }
-                                                }}" />                                        -->
+                                                }}" />                                       
                                     </DataTemplate>
 
                                 </ContentControl.Resources>
