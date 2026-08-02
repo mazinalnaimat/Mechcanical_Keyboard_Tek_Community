@@ -142,6 +142,14 @@
                 IsCompact="{Binding IsCompact, ElementName=Root}"
                 PageKey="Keymap"
                 Text="Keymap" />
+            
+            <controls:LeftSideButton
+                x:Name="LayersButton"
+                Click="NavigationButton_OnClick"
+                Icon="&#xE81E;"
+                IsCompact="{Binding IsCompact, ElementName=Root}"
+                PageKey="Layers"
+                Text="Layers" />
 
             <controls:LeftSideButton
                 x:Name="LightingButton"

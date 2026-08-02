@@ -8,6 +8,7 @@ using Tek_Mechanical_Keyboard.UI.Left_Side_Buttons;
 using Tek_Mechanical_Keyboard.UI.Pages.Keymap;
 using Tek_Mechanical_Keyboard.UI.Pages.Keymap.Services;
 using Tek_Mechanical_Keyboard.UI.Pages.Keymap.ViewModels;
+using Tek_Mechanical_Keyboard.UI.Pages.Layers;
 using Tek_Mechanical_Keyboard.UI.Pages.Lighting;
 using Tek_Mechanical_Keyboard.UI.Pages.Macros;
 using Tek_Mechanical_Keyboard.UI.Pages.Main;
@@ -40,6 +41,7 @@ public partial class MainWindow : Window
         {
             ["Main"] = new MainPage(),
             ["Keymap"] = new KeymapPage(keyMapViewModel),
+            ["Layers"] = new LayersPage(),
             ["Lighting"] = new LightingPage(),
             ["Macros"] = new MacrosPage(),
             ["Settings"] = new SettingsPage()
