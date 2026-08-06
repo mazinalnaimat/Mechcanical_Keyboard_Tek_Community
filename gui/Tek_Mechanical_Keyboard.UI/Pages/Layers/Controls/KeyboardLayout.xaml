@@ -1,0 +1,142 @@
+<UserControl
+    x:Class="Tek_Mechanical_Keyboard.UI.Pages.Layers.Controls.KeyboardLayout"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:Tek_Mechanical_Keyboard.UI.Pages.Layers.Controls"
+    x:Name="Root">
+
+    <Border
+        Padding="12"
+        Background="#202020"
+        BorderBrush="#383838"
+        BorderThickness="1"
+        ClipToBounds="True"
+        CornerRadius="10">
+
+        <Grid>
+
+            <!--
+                The Viewbox keeps the complete keyboard visible
+                if its calculated size is larger than the available area.
+                
+                DownOnly means:
+                - Large keyboard -> scale down
+                - Small keyboard -> keep original size
+            -->
+            <Viewbox
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Stretch="Uniform"
+                StretchDirection="DownOnly">
+
+                <!--
+                    This is now the REAL size of the whole keyboard,
+                    so WPF can center it correctly.
+                -->
+                <ItemsControl
+                    Width="{Binding LayoutWidth, ElementName=Root}"
+                    Height="{Binding LayoutHeight, ElementName=Root}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    ItemsSource="{Binding Keys, ElementName=Root}">
+
+                    <!--  ================================  -->
+                    <!--  Canvas  -->
+                    <!--  ================================  -->
+
+                    <ItemsControl.ItemsPanel>
+
+                        <ItemsPanelTemplate>
+
+                            <Canvas />
+
+                        </ItemsPanelTemplate>
+
+                    </ItemsControl.ItemsPanel>
+
+                    <!--  ================================  -->
+                    <!--  Key location and size  -->
+                    <!--  ================================  -->
+
+                    <ItemsControl.ItemContainerStyle>
+
+                        <Style TargetType="ContentPresenter">
+
+                            <Setter Property="Canvas.Left" Value="{Binding CanvasLeft}" />
+
+                            <Setter Property="Canvas.Top" Value="{Binding CanvasTop}" />
+
+                            <Setter Property="Width" Value="{Binding PixelWidth}" />
+
+                            <Setter Property="Height" Value="{Binding PixelHeight}" />
+
+                        </Style>
+
+                    </ItemsControl.ItemContainerStyle>
+
+                    <!--  ================================  -->
+                    <!--  Key template  -->
+                    <!--  ================================  -->
+
+                    <ItemsControl.ItemTemplate>
+
+                        <DataTemplate>
+
+                            <ContentControl Content="{Binding}">
+
+                                <ContentControl.Resources>
+
+                                    <!--  Normal key  -->
+
+                                    <DataTemplate x:Key="NormalKeyTemplate">
+
+                                        <controls:KeyButton SelectCommand="{Binding SelectCommand, RelativeSource={RelativeSource AncestorType={x:Type controls:KeyboardLayout}}}" />
+
+                                    </DataTemplate>
+
+                                    <!--  Modifier key  -->
+
+                                    <DataTemplate x:Key="ModifierKeyTemplate">
+
+                                        <controls:ModifierButton SelectCommand="{Binding SelectCommand, RelativeSource={RelativeSource AncestorType={x:Type controls:KeyboardLayout}}}" />
+                                    </DataTemplate>
+
+                                </ContentControl.Resources>
+
+                                <!--  Choose normal/modifier control  -->
+
+                                <ContentControl.Style>
+
+                                    <Style TargetType="ContentControl">
+
+                                        <Setter Property="ContentTemplate" Value="{StaticResource NormalKeyTemplate}" />
+
+                                        <Style.Triggers>
+
+                                            <DataTrigger Binding="{Binding IsModifier}" Value="True">
+
+                                                <Setter Property="ContentTemplate" Value="{DynamicResource ModifierKeyTemplate}" />
+
+                                            </DataTrigger>
+
+                                        </Style.Triggers>
+
+                                    </Style>
+
+                                </ContentControl.Style>
+
+                            </ContentControl>
+
+                        </DataTemplate>
+
+                    </ItemsControl.ItemTemplate>
+
+                </ItemsControl>
+
+            </Viewbox>
+
+        </Grid>
+
+    </Border>
+
+</UserControl>

@@ -15,14 +15,17 @@
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Styles/KeymapStyles.xaml" />
+                <ResourceDictionary Source="/Pages/Styles/KeymapStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
 
     <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
 
-        <Grid Margin="16" HorizontalAlignment="Stretch" Background="{StaticResource PageBackgroundBrush}" >
+        <Grid
+            Margin="16"
+            HorizontalAlignment="Stretch"
+            Background="{StaticResource PageBackgroundBrush}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -174,6 +177,7 @@
                                 Width="905"
                                 Height="320"
                                 Keys="{Binding Keys}"
+                                Loaded="KeyboardLayout_Loaded"
                                 RenderTransformOrigin="0.477,0.528"
                                 SelectCommand="{Binding SelectKeyCommand}" />
                         </Viewbox>
@@ -228,7 +232,11 @@
                             </StackPanel>
                         </Border>
 
-                        <StackPanel Grid.Row="3" Margin="0,12,0,0">
+                        <StackPanel
+                            Grid.Row="3"
+                            Width="200"
+                            Margin="0,12,0,0"
+                            HorizontalAlignment="Right">
                             <TextBlock
                                 FontSize="10"
                                 Foreground="{StaticResource SecondaryTextBrush}"

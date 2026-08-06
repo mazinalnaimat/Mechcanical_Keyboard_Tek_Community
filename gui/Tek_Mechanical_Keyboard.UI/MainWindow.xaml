@@ -20,9 +20,9 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <!--  Merging MainWindowStyles so Brushes & Button Styles are found  -->
-                <ResourceDictionary Source="/Styles/MainWindowStyles.xaml" />
+                <ResourceDictionary Source="/Pages/Styles/MainWindowStyles.xaml" />
                 <!--  Merging KeymapStyles for key templates  -->
-                <ResourceDictionary Source="/Styles/KeymapStyles.xaml" />
+                <ResourceDictionary Source="/Pages/Styles/KeymapStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>

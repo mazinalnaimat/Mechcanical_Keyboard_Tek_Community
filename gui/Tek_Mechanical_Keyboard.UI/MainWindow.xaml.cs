@@ -37,6 +37,7 @@ public partial class MainWindow : Window
             new MacroService(keyMapBusinessService),
             new ProfileService(keyMapBusinessService));
 
+        
         _pages = new Dictionary<string, Page>(StringComparer.OrdinalIgnoreCase)
         {
             ["Main"] = new MainPage(),

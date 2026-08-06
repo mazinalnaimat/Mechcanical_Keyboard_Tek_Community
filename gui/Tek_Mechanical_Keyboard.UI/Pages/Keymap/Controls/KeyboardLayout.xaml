@@ -90,31 +90,15 @@
 
                                     <DataTemplate x:Key="NormalKeyTemplate">
 
-                                        <controls:KeyButton
-                                            SelectCommand="{Binding
-                                                SelectCommand,
-                                                RelativeSource={
-                                                    RelativeSource
-                                                    AncestorType={
-                                                        x:Type controls:KeyboardLayout
-                                                    }
-                                                }}" />
+                                        <controls:KeyButton SelectCommand="{Binding SelectCommand, RelativeSource={RelativeSource AncestorType={x:Type controls:KeyboardLayout}}}" />
 
                                     </DataTemplate>
 
                                     <!--  Modifier key  -->
 
-                                                       <DataTemplate x:Key="ModifierKeyTemplate">
+                                    <DataTemplate x:Key="ModifierKeyTemplate">
 
-                                        <controls:ModifierButton
-                                            SelectCommand="{Binding
-                                                SelectCommand,
-                                                RelativeSource={
-                                                    RelativeSource
-                                                    AncestorType={
-                                                        x:Type controls:KeyboardLayout
-                                                    }
-                                                }}" />                                       
+                                        <controls:ModifierButton SelectCommand="{Binding SelectCommand, RelativeSource={RelativeSource AncestorType={x:Type controls:KeyboardLayout}}}" />
                                     </DataTemplate>
 
                                 </ContentControl.Resources>
