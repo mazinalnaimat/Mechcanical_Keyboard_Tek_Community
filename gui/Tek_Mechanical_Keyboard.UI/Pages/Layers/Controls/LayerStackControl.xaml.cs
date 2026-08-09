@@ -7,11 +7,6 @@ using System.Windows.Media;
 
 namespace Tek_Mechanical_Keyboard.UI.Pages.Layers.Controls
 {
-    /// <summary>
-    /// Displays the active profile's layers as a reorderable stack and lets the user
-    /// pick which one is selected. Bind ItemsSource to the ViewModel's Layers collection
-    /// and SelectedItem (TwoWay) to SelectedLayer.
-    /// </summary>
     public partial class LayerStackControl : UserControl
     {
         public static readonly DependencyProperty ItemsSourceProperty =
@@ -70,7 +65,9 @@ namespace Tek_Mechanical_Keyboard.UI.Pages.Layers.Controls
 
             if (sender is FrameworkElement element && element.DataContext is not null)
             {
-                DragDrop.DoDragDrop(element, element.DataContext, DragDropEffects.Move);
+                DataObject data = new DataObject();
+                data.SetData("DraggedLayer", element.DataContext);
+                DragDrop.DoDragDrop(element, data, DragDropEffects.Move);
             }
         }
 
@@ -81,7 +78,7 @@ namespace Tek_Mechanical_Keyboard.UI.Pages.Layers.Controls
                 return;
             }
 
-            object? draggedItem = e.Data.GetData(typeof(object));
+            object? draggedItem = e.Data.GetData("DraggedLayer");
             if (draggedItem is null)
             {
                 return;
@@ -105,16 +102,17 @@ namespace Tek_Mechanical_Keyboard.UI.Pages.Layers.Controls
                 return;
             }
 
-            if (list is ObservableCollection<int> intList)
+            if (list.GetType().GetMethod("Move") is var moveMethod && moveMethod is not null)
             {
-                intList.Move(oldIndex, newIndex);
+                moveMethod.Invoke(list, new object[] { oldIndex, newIndex });
             }
             else
             {
-                object item = list[oldIndex]!;
                 list.RemoveAt(oldIndex);
-                list.Insert(newIndex, item);
+                list.Insert(newIndex, draggedItem);
             }
+
+            SelectedItem = draggedItem;
         }
 
         private static ListBoxItem? GetParentListBoxItem(UIElement? element)

@@ -5,9 +5,9 @@
     <Grid>
         <ListBox
             x:Name="LayersListBox"
+            AllowDrop="True"
             Background="Transparent"
             BorderThickness="0"
-            AllowDrop="True"
             Drop="LayersListBox_Drop"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListBox.ItemTemplate>
@@ -20,6 +20,7 @@
                         BorderBrush="#414141"
                         BorderThickness="1"
                         CornerRadius="5"
+                        Cursor="SizeAll"
                         PreviewMouseMove="LayerItem_PreviewMouseMove">
                         <TextBlock
                             VerticalAlignment="Center"
@@ -37,7 +38,10 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="ListBoxItem">
-                                <Border x:Name="Selector" Background="Transparent" CornerRadius="6">
+                                <Border
+                                    x:Name="Selector"
+                                    Background="Transparent"
+                                    CornerRadius="6">
                                     <ContentPresenter />
                                 </Border>
                                 <ControlTemplate.Triggers>

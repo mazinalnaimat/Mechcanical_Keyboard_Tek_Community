@@ -4,11 +4,13 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Tek_Mechanical_Keyboard.Business.Keymap;
+using Tek_Mechanical_Keyboard.Business.Layers;
 using Tek_Mechanical_Keyboard.UI.Left_Side_Buttons;
 using Tek_Mechanical_Keyboard.UI.Pages.Keymap;
 using Tek_Mechanical_Keyboard.UI.Pages.Keymap.Services;
 using Tek_Mechanical_Keyboard.UI.Pages.Keymap.ViewModels;
 using Tek_Mechanical_Keyboard.UI.Pages.Layers;
+using Tek_Mechanical_Keyboard.UI.Pages.Layers.ViewModels;
 using Tek_Mechanical_Keyboard.UI.Pages.Lighting;
 using Tek_Mechanical_Keyboard.UI.Pages.Macros;
 using Tek_Mechanical_Keyboard.UI.Pages.Main;
@@ -28,21 +30,23 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
 
-        // Composition root for the KeyMap feature.
-        // Replace KeyMapBusinessService with the real Business implementation later;
-        // KeymapPage and KeyMapViewModel do not need to change.
+        // Composition root for KeyMap feature
         IKeyMapBusinessService keyMapBusinessService = new KeyMapBusinessService();
         KeyMapViewModel keyMapViewModel = new(
             new KeyboardService(keyMapBusinessService),
             new MacroService(keyMapBusinessService),
             new ProfileService(keyMapBusinessService));
 
-        
-        _pages = new Dictionary<string, Page>(StringComparer.OrdinalIgnoreCase)
+        // Composition root for Layers feature
+        ILayersBusinessService layersBusinessService = new LayersBusinessService();
+        LayerStackViewModel layerStackViewModel = new(layersBusinessService);
+        _ = layerStackViewModel.LoadLayersAsync("Default");
+
+        _pages = new(StringComparer.OrdinalIgnoreCase)
         {
             ["Main"] = new MainPage(),
             ["Keymap"] = new KeymapPage(keyMapViewModel),
-            ["Layers"] = new LayersPage(),
+            ["Layers"] = new LayersPage(layerStackViewModel),
             ["Lighting"] = new LightingPage(),
             ["Macros"] = new MacrosPage(),
             ["Settings"] = new SettingsPage()
@@ -51,9 +55,7 @@ public partial class MainWindow : Window
         NavigateTo("Main");
     }
 
-    private void SidePanel_OnNavigationRequested(
-        object? sender,
-        NavigationRequestedEventArgs e)
+    private void SidePanel_OnNavigationRequested(object? sender, NavigationRequestedEventArgs e)
     {
         NavigateTo(e.PageKey);
     }
@@ -94,8 +96,7 @@ public partial class MainWindow : Window
         => ToggleWindowState();
 
     private void CloseButton_OnClick(object sender, RoutedEventArgs e)
-        => this.Close();
-
+        => Close();
 
     private void ToggleWindowState()
     {
@@ -106,6 +107,5 @@ public partial class MainWindow : Window
 
     private void SidePanel_Loaded(object sender, RoutedEventArgs e)
     {
-
     }
 }
